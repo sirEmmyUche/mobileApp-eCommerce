@@ -8,7 +8,6 @@ import History from './components/history';
 import Wishlist from './components/wishlist';
 import Account from './components/account';
 
-
 const Tab = createBottomTabNavigator();
  
 export default function Layout() {
@@ -20,39 +19,35 @@ export default function Layout() {
         options={{
             tabBarLabel: 'Shop',
             tabBarIcon: ({ color, size }) => (
-                <Entypo name="shop" size={24} color="orange" />
+                <Entypo name="shop" size={24} color="#ff8c00" />
             ),
           }}/>
-
         <Tab.Screen name="Cart" component={Cart}
          options={{
             tabBarLabel: 'Cart',
             tabBarIcon: ({ color, size }) => (
-                <Entypo name="shopping-cart" size={24} color="orange" />
+                <Entypo name="shopping-cart" size={24} color="#ff8c00" />
             ),
           }}/>
-
         <Tab.Screen name="History" component={History}
          options={{
             tabBarLabel: 'History',
             tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="history" size={24} color="orange" />
+                <MaterialCommunityIcons name="history" size={24} color="#ff8c00" />
             ),
           }}/>
-
         <Tab.Screen name="Wishlist" component={Wishlist}
          options={{
             tabBarLabel: 'Wishlist',
             tabBarIcon: ({ color, size }) => (
-                <Entypo name="heart" size={24} color="orange" />
+                <Entypo name="heart" size={24} color="#ff8c00" />
             ),
           }}/>
-
         <Tab.Screen name="Account" component={Account}
          options={{
-            tabBarLabel: 'Shop',
+            tabBarLabel: 'Account',
             tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="account" size={24} color="orange" />
+                <MaterialCommunityIcons name="account" size={24} color="#ff8c00" />
             ),
           }}/>
       </Tab.Navigator>
