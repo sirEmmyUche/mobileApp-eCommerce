@@ -1,4 +1,3 @@
-
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
@@ -29,7 +28,6 @@ export default function Shop() {
       style={[
         styles.productContainer,
         styles.boxShadow,
-        //{ width: '50%' }, // Two products per row
       ]}
     >
       <View style={styles.productImageContainer}>
@@ -38,7 +36,7 @@ export default function Shop() {
       <Text style={styles.productTitle}>{item.title}</Text>
       <View style={styles.productPriceContainer}>
         <Text style={styles.productPrice}>${item.price}</Text>
-        <Entypo name="heart" size={24} color="orange" />
+        <Entypo name="heart" size={24} color="orange"/>
       </View>
     </View>
   ));
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    padding: 10,
   },
   boxShadow:{
     shadowColor:"#52006a",
@@ -78,11 +75,12 @@ const styles = StyleSheet.create({
     backgroundColor:"#fff",
     padding: 5,
     alignItems:"center",
+    rowGap:10,
+    columnGap:10,
   },
   productImageContainer: {
-    height: 100, //you can change to bigger height
+    height: 100, //you can change to bigger height 200
     width: '100%',
-    overflow: 'hidden', // Ensure images don't overflow their containers
     padding:5,
     borderWidth: 1,
     borderColor: 'transparent',
@@ -91,9 +89,6 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     height: '100%',
     resizeMode:'center'
-  },
-  productTextContainer: {
-    padding: 10,
   },
   productTitle: {
     fontSize: 16,
@@ -111,121 +106,6 @@ const styles = StyleSheet.create({
     color: 'green',
   },
 });
-
-
-
-
-
-// import { StatusBar } from 'expo-status-bar';
-// import React, { useEffect, useState } from 'react';
-// import { StyleSheet, Text, View, Image, ScrollView,} from 'react-native';
-// import { Entypo} from '@expo/vector-icons';
-
-// export default function Shop() {
-//   const [products, setProducts] = useState([]);
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     const fetchProduct = async () => {
-//       setLoading(true);
-//       try {
-//         let data = await fetch('https://fakestoreapi.com/products');
-//         let res = await data.json();
-//         setProducts(res);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     };
-//     fetchProduct();
-//   }, []);
-
-//   const displayProducts = products.map((item) => (
-//     <View
-//       key={item.id}
-//       style={[
-//         styles.productContainer,
-//         styles.boxShadow,
-//       ]}
-//     >
-//       <View style={styles.productImageContainer}>
-//         <Image style={styles.productImage} source={{ uri: item.image }} />
-//       </View>
-//         <Text style={styles.productTitle}>{item.title}</Text>
-//         <View style={styles.productPriceContainer}>
-//         <Text style={styles.productPrice}>${item.price}</Text>
-//         <Entypo name="heart" size={24} color="orange" />
-//         </View>
-//     </View>
-//   ));
-
-//   return (
-//     <View style={styles.container}>
-//       <ScrollView contentContainerStyle={styles.contentContainer}>
-//         <View>
-//         {displayProducts}
-//         </View>
-//       </ScrollView>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   contentContainer: {
-//     flexDirection: 'row',
-//     flexWrap:'wrap',
-//     justifyContent: 'space-between',
-//     padding: 10,
-//   },
-//   productContainer: {
-//     borderWidth: 1,
-//     borderColor: '#fff',
-//     margin: 5,
-//     width:"50%",
-//     alignItems:"center",
-//     backgroundColor:"#fff",
-//   },
-//   boxShadow:{
-//     shadowColor:"#52006a",
-//     // shadowOffset:{width:200, height:200},
-//     shadowOpacity:1,
-//     shadowRadius:1,
-//     elevation:5,
-//   },
-//   productImageContainer: {
-//     width: '100%',
-//     height: 100,
-//     padding:5,
-//     borderWidth: 1,
-//     borderColor: 'transparent',
-//   },
-//   productImage: {
-//     maxWidth: '100%',
-//     height: '100%',
-//     resizeMode:'center'
-//   },
-//   productTitle: {
-//     fontSize: 16,
-//     marginBottom: 5,
-//   },
-//   productPrice: {
-//     fontSize: 15,
-//     color: 'green',
-//   },
-//  
-
-// });
-
-
-
-
-
-
-
-
 
 
 
