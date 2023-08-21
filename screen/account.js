@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, PixelRatio,TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet,
+   Text, View, PixelRatio,Pressable,Linking } from 'react-native';
 import { Entypo,Octicons,Feather,
   MaterialCommunityIcons,AntDesign,MaterialIcons } from '@expo/vector-icons';
   import { useNavigation, Link } from '@react-navigation/native';
@@ -12,113 +13,145 @@ export default function Account() {
   const fontScale = PixelRatio.getFontScale();
   const getFontSize = size => size / fontScale;
 
+  const openEmail = async() => {
+    await Linking.openURL('mailto:emmyosuchukwu@gmail.com');
+  };
+  const openTwitter = async() => {
+    await Linking.openURL('https://twitter.com/sir_emmy_uche');
+  };
+
+  const openLinkedIn = async() => {
+    await Linking.openURL('https://www.linkedin.com/in/ucheosuchukwu');
+  };
+
   return (
     <View style={styles.mainAccountContainerWrapper}>
       <ScrollView>
-        <TouchableOpacity style={styles.profilePic} onPress={()=>{nav.navigate("login")}}>
+        <Pressable style={styles.profilePic} onPress={()=>{nav.navigate("login")}}>
           <Text>Please Sign In</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={styles.askForProductWrapper}>
-          <TouchableOpacity style={styles.headerBox}>
+          <Pressable style={styles.headerBox} onPress={()=>{nav.navigate("login")}}>
             <AntDesign name="pluscircle" size={40} color="#ff8c00" />
             <Text style={{fontSize: getFontSize(12)}}>Ask for a{"\n"}Product</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerBox}>
+          </Pressable>
+          <Pressable style={styles.headerBox}>
           <Entypo name="heart" size={40} color="#ff8c00" />
             <Text style={{fontSize: getFontSize(12)}}>WishList</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerBox}>
+          </Pressable>
+          <Pressable style={styles.headerBox}>
           <MaterialIcons name="money" size={40} color="#ff8c00" />
             <Text style={{fontSize: getFontSize(12)}}>Money{"\n"}Box</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View>
-            <TouchableOpacity style={styles.accountButtonLayout}>
+            <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialCommunityIcons name="account" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Edit Profile</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <Octicons name="verified" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Verification Status</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <Feather name="list" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Order History</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialIcons name="money" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Money Box</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialIcons name="payment" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Payment Cards</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <Octicons name="copy" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Copy Referal Code</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <Entypo name="document" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Terms and Conditions</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          </Pressable>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialIcons name="question-answer" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>FAQs</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialIcons name="car-repair" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Car Care</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialCommunityIcons name="account-off" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Delete Profile</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout}onPress={()=>{nav.navigate("login")}}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialCommunityIcons name="account-circle-outline" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Sign In</Text>
               </View>
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
-          </TouchableOpacity>
+          </Pressable>
+        </View>
+
+        <View style={styles.contactWrapper}>
+          <Text style={{fontSize: getFontSize(25)}}>Contact for Support</Text>
+          <View style={styles.contactIconWrapper}>
+            <View style={styles.contactIconBox}>
+              <Pressable onPress={openEmail}>
+                <Entypo name="email" size={30} color="red"/>
+              </Pressable>
+            </View>
+            <View style={styles.contactIconBox}>
+              <Pressable onPress={openTwitter}>
+                <AntDesign name="twitter" size={30} color="blue"/>
+              </Pressable>
+            </View>
+            <View style={styles.contactIconBox}>
+              <Pressable onPress={openLinkedIn}>
+                <AntDesign name="linkedin-square" size={30} color="blue"/>
+              </Pressable>
+            </View>
+          </View>
         </View>
       </ScrollView>
       <StatusBar style="auto" />
@@ -127,6 +160,21 @@ export default function Account() {
 }
 
 const styles=StyleSheet.create({
+  contactIconWrapper:{
+    width:"100%",
+    marginTop:"3%",
+    marginBottom:"3%",
+    flexDirection:"row",
+    justifyContent:"space-evenly"
+  },
+  contactWrapper:{
+    borderWidth:1,
+    borderColor:"yellow",
+    marginTop:"5%",
+    width:"100%",
+    backgroundColor:"yellow",
+    alignItems:"center"
+  },
   mainAccountContainerWrapper:{
     backgroundColor:"#fff",
     padding:5,
@@ -166,7 +214,7 @@ const styles=StyleSheet.create({
   },
   accountButtonLayout:{
     borderWidth:1,
-    borderColor:"red",
+    borderColor:"transparent",
     width:"100%",
     marginTop:"5%",
     marginBottom:"5%",
@@ -176,7 +224,7 @@ const styles=StyleSheet.create({
   },
   symbolAndTextWarpper:{
     borderWidth:1,
-    borderColor:"blue",
+    borderColor:"transparent",
     flexDirection:"row",
     alignItems:"center",
   },
