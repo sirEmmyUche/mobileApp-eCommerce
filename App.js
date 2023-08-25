@@ -1,11 +1,16 @@
 import {NavigationContainer} from "@react-navigation/native";
 import StackNavigation from "./navigators/stackNavigator";
-// import Layout from './layout';
+import { AuthProvider } from "./context/AuthProvider";
+import {CartContextProvider} from "./context/userCartProvider";
 
 export default function App() {
   return (
     <NavigationContainer>
-       <StackNavigation/>
+      <AuthProvider>
+        <CartContextProvider>
+        <StackNavigation/>
+        </CartContextProvider>
+      </AuthProvider>
     </NavigationContainer>
   );
 }

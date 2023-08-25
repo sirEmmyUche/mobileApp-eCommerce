@@ -3,13 +3,48 @@ import { Pressable, StyleSheet, Text, View,
      ScrollView,TextInput, Button} from 'react-native';
 import { Entypo,Ionicons} from '@expo/vector-icons';
 import { useNavigation,Link} from '@react-navigation/native';
+import { useAuthContext } from '../context/AuthProvider';
+import { signupUser } from '../api';
 
 export default function SignUp(){
-    const [eye, setEye] = useState(true)
+    const {auth, setAuth} = useAuthContext();
+    const [userInputs, setUserInputs]=useState({fName:"",lName:"",phoneNumber:"",email:"",password:""})
+    const [eye, setEye] = useState(true);
+
+    const [formValid, setFormValid] = useState(false);
+    const [submitting, setSubmitting] = useState(false); // Track submission status
+
+    const handleUserInputs = (text,fieldName)=>{
+        setUserInputs((prevState)=>{
+            // return { ...prevState, [fieldName]:text };
+            const newState = { ...prevState, [fieldName]: text };
+            // Check if all fields are filled to determine form validity
+            const allFieldsFilled = Object.values(newState).every(value => value !== "");
+            setFormValid(allFieldsFilled);
+            return newState;
+        })
+    }
+
     const handleEyeToggle = ()=>{
         setEye(!eye)
     }
-    // const nav = useNavigation();
+
+    const submitUserInputs=async()=>{
+        try{
+            let data = await signupUser(userInputs);
+            console.log(data)
+            setSubmitting(false);
+            // const nav = useNavigation();
+        }catch(err){console.log(err)}
+    }
+
+    const handleSubmit = () => {
+        if (formValid && !submitting) {
+          setSubmitting(true); // Set submitting status to true
+         submitUserInputs(); // ... Perform form submission logic ...
+        }
+      };
+
     return(
         <View style={{backgroundColor:"#fff",padding:10}}>
             <ScrollView>
@@ -29,25 +64,41 @@ export default function SignUp(){
                 <View>
                     <View  style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",}}>
                         <TextInput style={styles.input}
+                        name="fName"
+                        value={userInputs.fName}
+                        onChangeText={(text) => handleUserInputs(text, "fName")}
                         placeholder='first name'/>
                     </View>
                     <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",}}>
                         <TextInput style={styles.input}
+                         name="lName"
+                         value={userInputs.lName}
+                         onChangeText={(text) => handleUserInputs(text, "lName")}
                         placeholder='last name'/>
                     </View>
                     <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",}}>
                         <TextInput style={styles.input}
+                        inputMode='tel'
+                         name="phoneNumber"
+                         value={userInputs.phoneNumber}
+                         onChangeText={(text) => handleUserInputs(text, "phoneNumber")}
                         placeholder='Phone number'/>
                     </View>
                     <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",}}>
                         <TextInput style={styles.input}
                         inputMode='email'
+                        name="email"
+                         value={userInputs.email}
+                         onChangeText={(text) => handleUserInputs(text, "email")}
                         placeholder='email'/>
                     </View>
                     <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",flexDirection:"row", alignItems:"center"}}>
                         <TextInput style={{width:"95%", borderWidth:1,margin:12,height:40,fontSize:16,
                         paddingBottom:10,paddingLeft:10,paddingRight:45,paddingTop:10}}
                         secureTextEntry={eye}
+                        name="password"
+                         value={userInputs.password}
+                         onChangeText={(text) => handleUserInputs(text, "password")}
                         placeholder='password'/>
                         <Pressable style={{position:"absolute",left:"90%"}} onPress={handleEyeToggle}>
                         <Entypo name={eye?"eye-with-line":"eye"} color={"orange"} size={25} />
@@ -55,9 +106,9 @@ export default function SignUp(){
                         </View>
                     <View style={{margin:"5%", borderWidth:1,borderColor:"transparent"}}>
                     <Button
-                        // onPress={onPressLearnMore}
-                        title="Sign Up"
-                        // color="#841584"
+                        disabled={!formValid || submitting} // Disable the button if the form is not valid or submitting
+                        onPress={handleSubmit} 
+                        title={submitting?"Submitting...":"Sign Up"} //if not false = sign up : submit
                         color="orange"
                         accessibilityLabel="Learn more about this button"
                         />

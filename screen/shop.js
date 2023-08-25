@@ -1,19 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Pressable} from 'react-native';
 import { Entypo} from '@expo/vector-icons';
+import { useNavigation} from '@react-navigation/native';
+import  { getProducts } from '../api';
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const nav = useNavigation();
 
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        let data = await fetch('https://fakestoreapi.com/products');
-        let res = await data.json();
-        setProducts(res);
+        let data = await getProducts();
+        setProducts(data);
       } catch (err) {
         console.error(err);
       }
@@ -23,14 +25,9 @@ export default function Shop() {
   }, []);
 
   const displayProducts = products.map((item) => (
-    <View
-      key={item.id}
-      style={[
-        styles.productContainer,
-        styles.boxShadow,
-      ]}
-    >
-      <View style={styles.productImageContainer}>
+    <Pressable key={item.id} onPress={()=>nav.navigate("Product Details",{productId:item.id})}
+      style={[styles.productContainer,styles.boxShadow,]}>
+        <View style={styles.productImageContainer}>
         <Image style={styles.productImage} source={{ uri: item.image }} />
       </View>
       <Text style={styles.productTitle}>{item.title}</Text>
@@ -38,9 +35,12 @@ export default function Shop() {
         <Text style={styles.productPrice}>${item.price}</Text>
         <Entypo name="heart" size={24} color="orange"/>
       </View>
-    </View>
+    </Pressable>
   ));
-
+  if (products.length === 0) {
+    return <Text style={{color: "orange",textAlign:"center"}}>
+      Fetching Product...</Text>// or any loading indicator
+  }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>

@@ -7,7 +7,6 @@ import { Entypo,Octicons,Feather,
   import { useNavigation,Link} from '@react-navigation/native';
  
 
-
 export default function Account() {
   const nav = useNavigation()
     //making text responsive in their box
