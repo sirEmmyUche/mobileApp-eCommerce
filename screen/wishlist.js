@@ -4,9 +4,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Wishlist() {
   return (
-    <View>
-      <Text>Open up App.js to start working on your app and say it is working....!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+    <Text>Reminder:This is a dummy e-commerce mobile app and as such, nothing is real. 
+          Contact the developer for a real time functional mobile app.
+          To contact the developer, go to account and click the @ icon or any of the 
+          social media icon.
+    </Text>
+    <StatusBar style="auto" />
+  </View>
   );
 }

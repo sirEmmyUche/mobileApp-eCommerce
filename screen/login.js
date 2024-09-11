@@ -10,7 +10,7 @@ import { logInUser } from '../api';
 
 export default function Login(){
     const {auth, setAuth} = useAuthContext();
-    const [userInputs, setUserInputs]=useState({username:"",password:""})  //email:""
+    const [userInputs, setUserInputs]=useState({email:"",password:""})  //email:""
     const [eye, setEye] = useState(true);
 
     const [formValid, setFormValid] = useState(false);
@@ -32,10 +32,12 @@ export default function Login(){
     }
     const submitUserInputs=async()=>{
         try{
-            let data = await logInUser(userInputs);
-            let token = data.token;
-            let saveToken = await AsyncStorage.setItem('token', token);
-            setAuth({token})
+            console.log(userInputs)
+            // let data = await logInUser(userInputs);
+            // let token = data.token;
+            let user = await AsyncStorage.setItem('user', JSON.stringify(userInputs));
+            // // let saveToken = await AsyncStorage.setItem('token', token);
+            setAuth({user})
             setSubmitting(false);
             // const nav = useNavigation();
         }catch(err){console.log(err)}
@@ -57,9 +59,9 @@ export default function Login(){
                 <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",}}>
                         <TextInput style={styles.input}
                         inputMode='email'
-                        name="username" //email
-                         value={userInputs.username} //email
-                         onChangeText={(text) => handleUserInputs(text, "username")} //email
+                        name="email" //email
+                         value={userInputs.email} //email
+                         onChangeText={(text) => handleUserInputs(text, "email")} //email
                         placeholder='email'/>
                 </View>
                 <View style={{borderWidth:1,width:"100%",marginTop:"3%",borderColor:"transparent",flexDirection:"row", alignItems:"center"}}>

@@ -35,7 +35,7 @@ export default function Account() {
             <AntDesign name="pluscircle" size={40} color="#ff8c00" />
             <Text style={{fontSize: getFontSize(12)}}>Ask for a{"\n"}Product</Text>
           </Pressable>
-          <Pressable style={styles.headerBox} >
+          <Pressable style={styles.headerBox} onPress={()=>{nav.navigate("Wishlist")}}>
           <Entypo name="heart" size={40} color="#ff8c00" />
             <Text style={{fontSize: getFontSize(12)}}>WishList</Text>
           </Pressable>
@@ -61,7 +61,7 @@ export default function Account() {
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
           </Pressable>
 
-          <Pressable style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout} onPress={()=>{nav.navigate("History")}}>
               <View style={styles.symbolAndTextWarpper}>
                 <Feather name="list" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Order History</Text>

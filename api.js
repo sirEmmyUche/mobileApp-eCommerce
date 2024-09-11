@@ -110,7 +110,7 @@ export const logInUser = async(credentials)=>{
         let res = await data.json();
         if(!res){
             throw{
-                message: "nort ok",
+                message: "not ok",
                 check:"check api call log for details"
             }
         }else{
