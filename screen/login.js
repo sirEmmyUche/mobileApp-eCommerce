@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Pressable, StyleSheet, Text, View,
-     ScrollView,TextInput, Button,} from 'react-native';
+     ScrollView,TextInput, Button,
+     Alert,} from 'react-native';
 import { useNavigation,Link} from '@react-navigation/native';
 import { Entypo,Ionicons} from '@expo/vector-icons';
 import { useAuthContext } from '../context/AuthProvider';
@@ -12,6 +13,7 @@ export default function Login(){
     const {auth, setAuth} = useAuthContext();
     const [userInputs, setUserInputs]=useState({email:"",password:""})  //email:""
     const [eye, setEye] = useState(true);
+    const nav = useNavigation();
 
     const [formValid, setFormValid] = useState(false);
     const [submitting, setSubmitting] = useState(false); // Track submission status
@@ -32,15 +34,26 @@ export default function Login(){
     }
     const submitUserInputs=async()=>{
         try{
-            console.log(userInputs)
             // let data = await logInUser(userInputs);
             // let token = data.token;
-            let user = await AsyncStorage.setItem('user', JSON.stringify(userInputs));
+            let data = await AsyncStorage.getItem('user');
+            // console.log('data',data)
+            if(data == null){
+                setSubmitting(false);
+                Alert.alert('user not found, please sign up')
+            }else{
+                let user = await JSON.parse(data);
+            if(user.email){
+                setSubmitting(false);
+                nav.navigate('Cart');
+            }
+            }
+
             // // let saveToken = await AsyncStorage.setItem('token', token);
-            setAuth({user})
+            // setAuth({user})
             setSubmitting(false);
             // const nav = useNavigation();
-        }catch(err){console.log(err)}
+        }catch(err){console.error(err)}
     }
 
     const handleSubmit = () => {

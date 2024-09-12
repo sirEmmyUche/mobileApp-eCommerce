@@ -5,6 +5,7 @@ import { Entypo,Ionicons} from '@expo/vector-icons';
 import { useNavigation,Link} from '@react-navigation/native';
 import { useAuthContext } from '../context/AuthProvider';
 import { signupUser } from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUp(){
     const {auth, setAuth} = useAuthContext();
@@ -13,6 +14,7 @@ export default function SignUp(){
 
     const [formValid, setFormValid] = useState(false);
     const [submitting, setSubmitting] = useState(false); // Track submission status
+    const nav = useNavigation();
 
     const handleUserInputs = (text,fieldName)=>{
         setUserInputs((prevState)=>{
@@ -31,10 +33,10 @@ export default function SignUp(){
 
     const submitUserInputs=async()=>{
         try{
-            let data = await signupUser(userInputs);
-            console.log(data)
+            // let data = await signupUser(userInputs);
+            await AsyncStorage.setItem('user', JSON.stringify(userInputs));
             setSubmitting(false);
-            // const nav = useNavigation();
+            nav.navigate('Cart');
         }catch(err){console.log(err)}
     }
 

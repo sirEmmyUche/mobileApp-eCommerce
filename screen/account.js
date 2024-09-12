@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet,
 import { Entypo,Octicons,Feather,
   MaterialCommunityIcons,AntDesign,MaterialIcons } from '@expo/vector-icons';
   import { useNavigation,Link} from '@react-navigation/native';
+  import AsyncStorage from '@react-native-async-storage/async-storage';
  
 
 export default function Account() {
@@ -23,6 +24,15 @@ export default function Account() {
   const linkedIn = useCallback(async() => {
     await Linking.openURL('https://www.linkedin.com/in/ucheosuchukwu');
   });
+
+  const logOut = async()=>{
+    try{
+      console.log('it is working.....')
+      await AsyncStorage.removeItem('user');
+    }catch(error){
+      console.error(error)
+    }
+  }
 
   return (
     <View style={styles.mainAccountContainerWrapper}>
@@ -108,7 +118,7 @@ export default function Account() {
             <MaterialCommunityIcons name="greater-than" size={24} color="#ff8c00" />
           </Pressable>
 
-          <Pressable style={styles.accountButtonLayout}>
+          <Pressable style={styles.accountButtonLayout} onPress={logOut}>
               <View style={styles.symbolAndTextWarpper}>
                 <MaterialCommunityIcons name="account-off" size={24} color="#ff8c00" />
                 <Text style={styles.textStyle}>Delete Profile</Text>

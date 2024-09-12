@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, Alert, View, Image, Pressable } from 'rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
@@ -83,6 +84,17 @@ export default function Cart() {
     }, 0);
   }, [cart, quantities]);
 
+  const openPaymentLink = async () => {
+    let data = await AsyncStorage.getItem('user');
+    let user = await JSON.parse(data);
+    if(user == null){
+      Alert.alert('Please logIn or Sign up to continue')
+    }
+    else{
+      await WebBrowser.openBrowserAsync('https://buy.stripe.com/test_aEUeVf7w27dN5yMfYY');
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={[styles.scrollView]}>
       <View>
@@ -136,7 +148,7 @@ export default function Cart() {
       {cart.length > 0 && (
         <View style={[styles.footer]}>
           <Text style={[styles.totalPrice]}>Total: ${totalPrice.toFixed(2)}</Text>
-          <Pressable style={[styles.btn]}>
+          <Pressable style={[styles.btn]} onPress={openPaymentLink}>
             <Text style={[styles.btnText]}>Checkout</Text>
           </Pressable>
           <Pressable style={[styles.btn]} onPress={clearCart}>
