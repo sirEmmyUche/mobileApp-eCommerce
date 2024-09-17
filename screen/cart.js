@@ -5,10 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
+import CustomAlert from '../components/customAlert';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   // Fetch cart data whenever the screen is focused
   useFocusEffect(
@@ -41,6 +44,8 @@ export default function Cart() {
     await AsyncStorage.removeItem('cart');
     setCart([]);
     setQuantities({});
+    setAlertText('Cart cleared');
+    setAlertVisible(true);
   };
 
   // Increment and decrement quantity functions
@@ -69,11 +74,15 @@ export default function Cart() {
       const updatedQuantities = { ...quantities };
       delete updatedQuantities[id];
       setQuantities(updatedQuantities);
-
-      Alert.alert('Product removed from the cart');
+      setAlertText('Product removed from cart');
+      setAlertVisible(true);
+      // <CustomAlert text={'Product removed from the cart'}/>
+      // Alert.alert('Product removed from the cart');
     } catch (err) {
       console.log('Error removing item from cart:', err);
-      Alert.alert('Unable to remove product from the cart');
+      setAlertText('Error removing product from cart');
+      setAlertVisible(true);
+      // Alert.alert('Unable to remove product from the cart');
     }
   };
 
@@ -88,7 +97,9 @@ export default function Cart() {
     let data = await AsyncStorage.getItem('user');
     let user = await JSON.parse(data);
     if(user == null){
-      Alert.alert('Please logIn or Sign up to continue')
+      setAlertText('Please logIn or Sign up to continue');
+      setAlertVisible(true);
+      // Alert.alert('Please logIn or Sign up to continue')
     }
     else{
       await WebBrowser.openBrowserAsync('https://buy.stripe.com/test_aEUeVf7w27dN5yMfYY');
@@ -163,6 +174,7 @@ export default function Cart() {
         </View>
       )}
       <StatusBar style="auto" />
+      <CustomAlert text={alertText} visible={alertVisible} onClose={() => setAlertVisible(false)} />
     </ScrollView>
   );
 }
